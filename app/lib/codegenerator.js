@@ -2,8 +2,7 @@
 
 var _ = require('lodash');
 
-
-var generateDigraphs = function () {
+var generateSyllables = function () {
 	var consonants = "bcdfghjklmnpqrstvxzwy";
 	var vowels = "aeiou";
 	var naughtyList = ["co", "cu", "pu", "di", "pe"];
@@ -17,8 +16,8 @@ var generateDigraphs = function () {
 	}
 	return ret;
 };
-var digraphs = generateDigraphs();
-var base = digraphs.length;
+var syllables = generateSyllables();
+var base = syllables.length;
 
 // http://www.javascripter.net/faq/convert3.htm
 var toRadix = function (N, radix, characters) {
@@ -36,7 +35,7 @@ var toRadix = function (N, radix, characters) {
 module.exports = {
 
 	generateCode: function (nr) {
-		return toRadix(nr, base, digraphs);
+		return toRadix(nr, base, syllables);
 	},
 
 }

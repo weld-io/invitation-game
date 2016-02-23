@@ -20,18 +20,22 @@ Server will default to **http://localhost:3011**
 
 	curl -X POST -H "Content-Type: application/json" -d '{ "email": "test@weld.io", "destination": { "url": "https://www.weld.io" } }' http://localhost:3011/api/invites
 
-**Note**: Inviter’s email *is* stored in the database.
-
 JSON response:
+
 	{"_id":"56c97aeba74d62b6e1895175","code":"bo","user":"56c8df5215e12e53e0c77bba","destination":{"url":"https://www.weld.io"},"__v":0,"dateCreated":"2016-02-21T08:52:59.638Z"}
+
+**Notes**:
+
+* Inviter’s email *is* stored in the database.
+* The invitation code is generated with simple syllables. Code 0="ba", 1="be", 1000000="bebababa", etc.
 
 2) Distribute the link `http://localhost:3011/[code]` via email, sms, copy link.
 
 3) Invitee clicks the link and is transported to _destination_ with optional parameters. `inviteCode` is added to URL parameters.
 
-4) When Invitee signs up, report this to Invitation Game using the `inviteCode` provided. Score is added to Inviter. Email is sent to Inviter.
+4) When Invitee signs up, confirm this to Invitation Game using the `inviteCode` provided. Score is added to Inviter. Email is sent to Inviter.
 
-	curl -X POST -H "Content-Type: application/json" -d '{ "code": "hubabuba", "email": "test@weld.io" }' http://localhost:3011/api/signups
+	curl -X POST -H "Content-Type: application/json" -d '{ "code": "hubabuba", "email": "test@weld.io" }' http://localhost:3011/api/confirmations
 
 **Note**: Invitee’s email is *not* stored in the database.
 
@@ -44,9 +48,9 @@ Create new invite:
 
 	curl -X POST -H "Content-Type: application/json" -d '{ "email": "test@weld.io", "destination": { "url": "https://www.weld.io" } }' http://localhost:3011/api/invites
 
-Create new signup:
+Create new confirmation:
 
-	curl -X POST -H "Content-Type: application/json" -d '{ "code": "hubabuba", "email": "test@weld.io" }' http://localhost:3011/api/signups
+	curl -X POST -H "Content-Type: application/json" -d '{ "code": "hubabuba", "email": "test@weld.io" }' http://localhost:3011/api/confirmations
 
 
 ## Implementation

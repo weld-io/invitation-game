@@ -16,3 +16,6 @@ models.forEach(function (model) {
 var app = express();
 require('./config/express')(app, config);
 module.exports = app;
+module.exports.closeDatabase = function () {
+	mongoose.connection.close();
+}
