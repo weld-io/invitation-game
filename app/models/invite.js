@@ -8,8 +8,8 @@ var InviteSchema = new Schema({
 	code: { type: String, unique: true, required: true },
 	user: { type: Schema.Types.ObjectId, ref: 'User' },
 	dateCreated: { type: Date, default: Date.now },
-	destination: {},
-	message: { type: String },
+	destination: { type: String },
+	confirmations: {},
 });
 
 InviteSchema.plugin(findOrCreate);

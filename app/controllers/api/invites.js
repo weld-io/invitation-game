@@ -38,7 +38,7 @@ module.exports = {
 	// Create new invite
 	create: function (req, res, next) {
 
-		User.findOrCreate({ email: req.body.email }, function (userErr, user, created) {
+		User.findOrCreate({ email: req.body.from }, function (userErr, user, created) {
 			if (userErr) {
 				return res.status(400).json(userErr);
 			}

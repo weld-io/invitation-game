@@ -57,8 +57,8 @@ module.exports = {
 			if (foundInvites.length > 0) {
 				var invite = foundInvites[0];
 				var redirectUrl;
-				if (invite.destination && invite.destination.url)
-					redirectUrl = invite.destination.url;
+				if (invite.destination)
+					redirectUrl = invite.destination;
 				else
 					redirectUrl = 'http://weld.io';
 				// Add parameters
