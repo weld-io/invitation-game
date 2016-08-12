@@ -1,7 +1,7 @@
 module.exports = {
 
 	index: function (req, res, next) {
-		res.render('index', { title: 'Invitation Game' });
+		res.render('index', { title: process.env.APP_NAME + ' Invites' });
 	}
 
 }

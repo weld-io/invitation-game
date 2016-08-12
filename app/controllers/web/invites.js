@@ -64,7 +64,9 @@ module.exports = {
 				res.render(
 					'invites/click',
 					{
-						title: 'Invites - redirecting...',
+						title: 'Invitation to ' + process.env.APP_NAME,
+						description: process.env.APP_DESCRIPTION,
+						url: process.env.ACCEPT_INVITE_URL + '/' + invite.code,
 						redirectUrl: redirectUrl,
 					}
 				);

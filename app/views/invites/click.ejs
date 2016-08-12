@@ -3,8 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
+
 <title><%- title %></title>
-<meta http-equiv="refresh" content="0; URL=<%= redirectUrl %>">
+<meta property="og:site_name" content="<%- title %>">
+<meta property="og:title" content="<%- title %>">
+<meta name="twitter:title" content="<%- title %>">
+<meta name="description" content="<%- description %>">
+<meta property="og:description" content="<%- description %>">
+<meta name="twitter:description" content="<%- description %>">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="<%- url %>">
+<meta property="og:url" content="<%- url %>">
+<meta name="twitter:url" content="<%- url %>">
+
+<meta http-equiv="refresh" content="0; URL=<%- redirectUrl %>">
 <style type="text/css">
 
 body {
@@ -16,7 +29,7 @@ body {
 </head>
 <body>
 
-<p>Redirecting to <a href="<%= redirectUrl %>"><%= redirectUrl %></a>...</p>
+<p>Redirecting to <a href="<%- redirectUrl %>"><%- redirectUrl %></a>...</p>
 
 </body>
 </html>
