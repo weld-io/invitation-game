@@ -14,6 +14,7 @@ module.exports = function (app, config) {
 	// Controllers
 	var invitesApiController = require(config.root + '/app/controllers/api/invites');
 	var confirmationsApiController = require(config.root + '/app/controllers/api/confirmations');
+	var emailApiController = require(config.root + '/app/controllers/api/email');
 
 	var startController = require(config.root + '/app/controllers/web/start');
 	var invitesWebController = require(config.root + '/app/controllers/web/invites');
@@ -26,7 +27,7 @@ module.exports = function (app, config) {
 	// router.delete('/api/invites/:id', invitesApiController.delete);
 	router.post('/api/confirmations', confirmationsApiController.create);
 
-	//router.post('/api/email', );
+	router.post('/api/email', emailApiController.send);
 
 
 	// Web Routes
