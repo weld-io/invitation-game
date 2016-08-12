@@ -41,7 +41,6 @@ test('Codegenerator', function (t) {
 	t.equal(codegenerator.generateCode(0), 'ba');
 	t.equal(codegenerator.generateCode(20000), 'bibaba');
 	t.equal(codegenerator.generateCode(12345678), 'fakiqevo');
-	t.equal(codegenerator.generateCode(1000000), 'fakiqevo');
 	t.end();
 });
 
