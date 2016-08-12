@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var md5 = require('md5');
 var mongoose = require('mongoose');
 
 var codegenerator = require('../../lib/codegenerator');
@@ -17,7 +18,7 @@ module.exports = {
 		Invite.find(searchQuery, function (inviteErr, foundInvites) {
 			if (foundInvites.length > 0) {
 				var invite = foundInvites[0];
-				var emailHash = codegenerator.generateHash(req.body.user);
+				var emailHash = md5(req.body.email);
 				invite.confirmations = invite.confirmations || {};
 				invite.confirmations[emailHash] = { date: new Date };
 				invite.save(function () {
