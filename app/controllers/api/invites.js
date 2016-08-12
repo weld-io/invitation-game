@@ -45,9 +45,12 @@ module.exports = {
 			else {
 				var searchOptions = {};
 				searchOptions.user = user._id;
-				Invite.find(searchOptions, function (inviteErr, foundInvites) {
+				Invite.find(searchOptions).lean().exec(function (inviteErr, foundInvites) {
 					if (foundInvites.length > 0) {
-						return res.json(foundInvites[0]);
+						var invite = _.cloneDeep(foundInvites[0]);
+						invite.inviteUrl = process.env.ACCEPT_INVITE_URL + '/' + invite.code;
+						delete invite.confirmations;
+						return res.json(invite);
 					}
 					else {
 						Invite.createNew(searchOptions, function (inviteErr, newInvite) {
@@ -55,7 +58,11 @@ module.exports = {
 								return res.status(400).json(inviteErr);
 							}
 							else {
-								return res.json(newInvite);
+								// TODO: remove duplicate code
+								var invite = _.cloneDeep(newInvite.toObject());
+								invite.inviteUrl = process.env.ACCEPT_INVITE_URL + '/' + invite.code;
+								delete invite.confirmations;
+								return res.json(invite);
 							}
 						});						
 					}
