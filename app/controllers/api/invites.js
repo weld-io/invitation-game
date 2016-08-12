@@ -43,15 +43,15 @@ module.exports = {
 				return res.status(400).json(userErr);
 			}
 			else {
-				var options = _.cloneDeep(req.body);
-				delete options.email;
-				options.user = user._id;
-				Invite.find(options, function (inviteErr, foundInvites) {
+				var searchOptions = _.cloneDeep(req.body);
+				delete searchOptions.to; // Invitees are not part of the unique Invite code
+				searchOptions.user = user._id;
+				Invite.find(searchOptions, function (inviteErr, foundInvites) {
 					if (foundInvites.length > 0) {
 						return res.json(foundInvites[0]);
 					}
 					else {
-						Invite.createNew(options, function (inviteErr, newInvite) {
+						Invite.createNew(searchOptions, function (inviteErr, newInvite) {
 							if (inviteErr) {
 								return res.status(400).json(inviteErr);
 							}
