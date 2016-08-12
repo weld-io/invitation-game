@@ -2,13 +2,13 @@
 
 var _ = require('lodash');
 var md5 = require('md5');
+
 var mongoose = require('mongoose');
+var User = mongoose.model('User');
+var Invite = mongoose.model('Invite');
 
 var codegenerator = require('../../lib/codegenerator');
 var emailservice = require('../../lib/emailservice');
-
-var User = mongoose.model('User');
-var Invite = mongoose.model('Invite');
 
 module.exports = {
 
@@ -36,7 +36,6 @@ module.exports = {
 				return res.status(404).json({ message: 'Invite not found' });				
 			}
 		});
-
 	},
 
 }

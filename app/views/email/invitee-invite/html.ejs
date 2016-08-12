@@ -1,0 +1,13 @@
+<h1>You are invited to <%- appName %>!</h1>
+
+<p><%- inviterEmail %> has invited you to try <%- appName %>.</p>
+
+<%if (message) { %>
+<p>“<%- message %>”</p>
+<% } %>
+
+<%if (appDescription) {%>
+<p><%- appDescription %></p>
+<% } %>
+
+<p><a class="call-to-action" href="<%- appAcceptInviteUrl %>">Get started with <%- appName %>!</a></p>

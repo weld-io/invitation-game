@@ -9,14 +9,11 @@ API for a gamified invitation system built in Node.js.
 
 Just start with:
 
-	# Set App Name
-	export APP_NAME="My Website"
-	# Set URL for where to send invite (for the Inviter)
-	export SEND_INVITE_URL="http://www.mywebsite.com/invite-a-friend"
-	# Set URL for where to accept invite (for the Invitee)
-	export ACCEPT_INVITE_URL="http://invites.mywebsite.com"
-	# Set default Destination
-	export DESTINATION=http://www.mywebsite.com
+	export APP_NAME="My Website" # Set App Name
+	export APP_DESCRIPTION="My Website is the best website." # Set App Name
+	export DESTINATION=http://www.mywebsite.com # Set default Destination (when Invitee clicks the link)
+	export SEND_INVITE_URL="http://www.mywebsite.com/invite-a-friend" # Set URL for where to send invite (for the Inviter)
+	export ACCEPT_INVITE_URL="http://invites.mywebsite.com" # Set URL for where to accept invite (for the Invitee)
 
 	# If you want email using Amazon SES
 	export EMAILSENDER="Email Sender <info@mywebsite.com>"
@@ -65,9 +62,9 @@ JSON response:
 
 Let the Inviter distribute the link `http://localhost:3011/[code]` via email, SMS, or copy link.
 
-You can also tell Invite Game to send an email invitation:
+You can also tell Invitation Game to send an email invitation:
 
-	curl -X POST -H "Content-Type: application/json" -d '{ "code": "bo", "message": "You should really try this app:", "email": "invitee1@weld.io,invitee2@weld.io" }' http://localhost:3011/api/invites
+	curl -X POST -H "Content-Type: application/json" -d '{ "code": "bo", "message": "You should really try this app:", "email": "invitee1@weld.io,invitee2@weld.io" }' http://localhost:3011/api/email
 
 Fields:
 
