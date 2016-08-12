@@ -9,12 +9,20 @@ API for a gamified invitation system built in Node.js.
 
 Just start with:
 
-	# Set password used in API requests
-	export API_PASSWORD=MYPASSWORD
+	# Set App Name
+	export APP_NAME="My Website"
+	# Set URL for where to send invite (for the Inviter)
+	export SEND_INVITE_URL="http://www.mywebsite.com/invite-a-friend"
+	# Set URL for where to accept invite (for the Invitee)
+	export ACCEPT_INVITE_URL="http://invites.mywebsite.com"
 	# Set default Destination
 	export DESTINATION=http://www.mywebsite.com
-	# Set default Email Sender
+
+	# If you want email using Amazon SES
 	export EMAILSENDER="Email Sender <info@mywebsite.com>"
+	export SES_ACCESSKEY=[your key]
+	export SES_SECRET=[your secret]
+	export SES_REGION=eu-west-1
 
 	grunt
 
@@ -28,7 +36,9 @@ Server will default to **http://localhost:3011**
 
 ## How to Use
 
-1) **Create invitation:** Generate a unique invitation code based on Inviter (+ Destination):
+### 1) Create invitation
+
+Generate a unique invitation code based on Inviter (+ Destination):
 
 	curl -X POST -H "Content-Type: application/json" -d '{ "email": "inviter@weld.io", "name": "Ellie Arroway" }' http://localhost:3011/api/invites
 
@@ -51,7 +61,9 @@ JSON response:
 
 **Note:** The invitation code is generated with simple syllables. Code 0="ba", 1="be", 1000000="bebababa", etc.
 
-2) **Distribute link:** Let the Inviter distribute the link `http://localhost:3011/[code]` via email, SMS, or copy link.
+### 2) Distribute link
+
+Let the Inviter distribute the link `http://localhost:3011/[code]` via email, SMS, or copy link.
 
 You can also tell Invite Game to send an email invitation:
 
@@ -63,9 +75,13 @@ Fields:
 * `message`: used in the message to the Invitee.
 * `email`: Comma-separated lists of 1+ email addresses to invite, e.g. `invitee1@weld.io,invitee2@weld.io`. Invitee email addresses *are never* stored in the database.
 
-3) **Link is clicked:** Invitee clicks the link and is transported to _Destination_ with optional parameters. `inviteCode` is added to URL parameters.
+### 3) Link is clicked
 
-4) **Create confirmation:** When Invitee signs up, confirm this to by using the `code` provided. Score is added to Inviter. Email is sent to Inviter.
+Invitee clicks the link and is transported to _Destination_ with optional parameters. `inviteCode` is added to URL parameters.
+
+### 4) Create confirmation
+
+When Invitee signs up, confirm this to by using the `code` provided. Score is added to Inviter. Email is sent to Inviter.
 
 	curl -X POST -H "Content-Type: application/json" -d '{ "code": "bo", "email": "invitee@weld.io" }' http://localhost:3011/api/confirmations
 
@@ -89,7 +105,9 @@ JSON response:
 		"dateCreated": "2016-02-21T08:52:59.638Z"
 	}
 
-5) **Trigger rewards:** Inviter’s score is accumulated, and rewards can be triggered at certain score levels. Rewards can be trigger web callbacks and/or email being sent.
+### 5) Trigger rewards
+
+Inviter’s score is accumulated, and rewards can be triggered at certain score levels. Rewards can be trigger web callbacks and/or email being sent.
 
 
 ## Implementation

@@ -11,43 +11,53 @@ var transport = nodemailer.createTransport(
 	})
 );
 
-var config = require('../config/config');
-
 var defaultSenderEmail = process.env.EMAILSENDER || 'Default Sender <info@defaultwebsite.com>';
+var appName = process.env.APP_NAME || "Default App Name";
+var appSendInviteUrl = process.env.SEND_INVITE_URL || "http://invites.defaultwebsite.com";
+var appAcceptInviteUrl = process.env.ACCEPT_INVITE_URL || "http://invites.defaultwebsite.com";
 
 var VIEWS_PATH = 'app/views/';
-if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
-	VIEWS_PATH = config.root + '/views/';
-}
 
-var sendTemplateUserInvited = transport.templateSender(
-	new EmailTemplate(VIEWS_PATH + 'email/share-project'), // path to template
+var sendTemplateInviterConfirmation = transport.templateSender(
+	new EmailTemplate(VIEWS_PATH + 'email/inviter-confirmation'), // path to template
 	{
 		from: defaultSenderEmail, // sender address
 	}
 );
 
-module.exports.sendUserInvited = function (sender, recipient, project) {
-	// use template based sender to send a message
-	sendTemplateUserInvited(
-		{
-			replyTo: sender, // sender address
-			to: recipient, // list of receivers
-			// EmailTemplate renders html and text but no subject so we need to set it manually either here or in the defaults section of templateSender()
-			subject: "Check out “{project.name}” by {sender.email}".replace(/{project.name}/g, project.name).replace(/{sender.email}/g, sender),
-		},
-		{
-			project: project,
-			projectScreenshot: projects.getScreenshotUrl(project, project._id),
-			sender: { email: sender }
-		},
-		function (err, info) {
-			if (err) {
-			   console.log('Mailer error:', err);
-			}
-			else {
-				//console.log('sendUserInvited sent');
-			}
+module.exports = {
+
+	sendInviterConfirmation: function (inviterEmail, inviteeEmail, score, callback) {
+		// use template based sender to send a message
+		if (process.env.EMAILSENDER) {
+			sendTemplateInviterConfirmation(
+				{
+					//replyTo: sender, // sender address
+					to: inviterEmail, // list of receivers
+					// EmailTemplate renders html and text but no subject so we need to set it manually either here or in the defaults section of templateSender()
+					subject: "{appName} invites: {inviteeEmail} just signed up - you have {score} points!"
+						.replace(/{appName}/g, appName)
+						.replace(/{inviteeEmail}/g, inviteeEmail)
+						.replace(/{score}/g, score),
+				},
+				{
+					appName: appName,
+					appSendInviteUrl: appSendInviteUrl,
+					appAcceptInviteUrl: appAcceptInviteUrl,
+					inviteeEmail: inviteeEmail,
+					score: score,
+				},
+				function (err, results) {
+					if (err) {
+					   console.log('Mailer error:', err);
+					}
+					else {
+						console.log('sendInviterConfirmation sent to ' + inviterEmail);
+					}
+					if (callback) callback(err, results);
+				}
+			);			
 		}
-	);
+	},
+
 };
