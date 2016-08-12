@@ -12,8 +12,8 @@ Just start with:
 	export APP_NAME="My Website" # Set App Name
 	export APP_DESCRIPTION="My Website is the best website." # Set App Name
 	export DESTINATION=http://www.mywebsite.com # Set default Destination (when Invitee clicks the link)
-	export SEND_INVITE_URL="http://www.mywebsite.com/invite-a-friend" # Set URL for where to send invite (for the Inviter)
-	export ACCEPT_INVITE_URL="http://invites.mywebsite.com" # Set URL for where to accept invite (for the Invitee)
+	export SEND_INVITE_URL=http://www.mywebsite.com/invite-a-friend # Set URL for where to send invite (for the Inviter)
+	export ACCEPT_INVITE_URL=http://invites.mywebsite.com # Set URL for where to accept invite (for the Invitee)
 
 	# If you want email using Amazon SES
 	export EMAILSENDER="Email Sender <info@mywebsite.com>"
@@ -119,3 +119,13 @@ Built on Node.js, Express (with EJS) and MongoDB.
 	heroku create MYAPPNAME
 	heroku addons:add mongolab
 	heroku config:set NODE_ENV=production
+	heroku config:set APP_NAME=[...]
+	heroku config:set APP_DESCRIPTION=[...]
+	heroku config:set DESTINATION=[...]
+	heroku config:set SEND_INVITE_URL=[...]
+	heroku config:set ACCEPT_INVITE_URL=[...]
+
+	heroku config:set EMAILSENDER=[...]
+	heroku config:set SES_ACCESSKEY=[...]
+	heroku config:set SES_SECRET=[...]
+	heroku config:set SES_REGION=[...]
