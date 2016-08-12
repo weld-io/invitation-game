@@ -1,3 +1,5 @@
+![The Invitation Game](invitation-game.jpg)
+
 # The Invitation Game
 
 API for a gamified invitation system built in Node.js.
