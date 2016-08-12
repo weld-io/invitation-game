@@ -28,14 +28,13 @@ Server will default to **http://localhost:3011**
 
 1) **Create invitation:** Generate a unique invitation code based on Inviter (+ Destination):
 
-	curl -X POST -H "Content-Type: application/json" -d '{ "from": "inviter@weld.io" }' http://localhost:3011/api/invites
+	curl -X POST -H "Content-Type: application/json" -d '{ "email": "inviter@weld.io", "name": "Ellie Arroway" }' http://localhost:3011/api/invites
 
 Fields:
 
-* `from` **(required)**: the Inviters email. Inviter email address *is* stored in the database.
+* `email` **(required)**: the Inviter’s email (is stored in database).
+* `name`: the Inviter’s name (is stored in database).
 * `destination`: if you want to override the default Destination URL, specify URL here.
-* `message`: used in the message to the Invitee.
-* `to`: If you want to the Invitation Game to send the link via email. Comma-separated lists of 1+ email addresses to invite, e.g. `invitee@weld.io,invitee2@weld.io`. Invitee email addresses *are never* stored in the database.
 
 JSON response:
 
@@ -51,6 +50,16 @@ JSON response:
 **Note:** The invitation code is generated with simple syllables. Code 0="ba", 1="be", 1000000="bebababa", etc.
 
 2) **Distribute link:** Let the Inviter distribute the link `http://localhost:3011/[code]` via email, SMS, or copy link.
+
+You can also tell Invite Game to send an email invitation:
+
+	curl -X POST -H "Content-Type: application/json" -d '{ "code": "bo", "message": "You should really try this app:", "email": "invitee1@weld.io,invitee2@weld.io" }' http://localhost:3011/api/invites
+
+Fields:
+
+* `code` **(required)**: the Invite code.
+* `message`: used in the message to the Invitee.
+* `email`: Comma-separated lists of 1+ email addresses to invite, e.g. `invitee1@weld.io,invitee2@weld.io`. Invitee email addresses *are never* stored in the database.
 
 3) **Link is clicked:** Invitee clicks the link and is transported to _Destination_ with optional parameters. `inviteCode` is added to URL parameters.
 

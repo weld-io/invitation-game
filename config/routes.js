@@ -26,6 +26,9 @@ module.exports = function (app, config) {
 	// router.delete('/api/invites/:id', invitesApiController.delete);
 	router.post('/api/confirmations', confirmationsApiController.create);
 
+	//router.post('/api/email', );
+
+
 	// Web Routes
 	router.get('/:code', invitesWebController.click);
 	router.get('/', startController.index);

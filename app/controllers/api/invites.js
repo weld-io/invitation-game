@@ -38,13 +38,12 @@ module.exports = {
 	// Create new invite
 	create: function (req, res, next) {
 
-		User.findOrCreate({ email: req.body.from }, function (userErr, user, created) {
+		User.findOrCreate({ email: req.body.email }, { name: req.body.name }, function (userErr, user, created) {
 			if (userErr) {
 				return res.status(400).json(userErr);
 			}
 			else {
-				var searchOptions = _.cloneDeep(req.body);
-				delete searchOptions.to; // Invitees are not part of the unique Invite code
+				var searchOptions = {};
 				searchOptions.user = user._id;
 				Invite.find(searchOptions, function (inviteErr, foundInvites) {
 					if (foundInvites.length > 0) {

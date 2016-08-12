@@ -5,6 +5,7 @@ var findOrCreate = require('mongoose-findorcreate');
 
 var UserSchema = new Schema({
 	email: { type: String, unique: true, required: true },
+	name: { type: String },
 	dateCreated: { type: Date, default: Date.now },
 	score: { type: Number },
 });
