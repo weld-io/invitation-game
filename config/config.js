@@ -30,7 +30,7 @@ var config = {
 			name: 'invitation-game'
 		},
 		port: 3000,
-		db: process.env.MONGOLAB_URI || 'mongodb://localhost/invitation-game-production'
+		db: process.env.MONGODB_URI || 'mongodb://localhost/invitation-game-production'
 
 	}
 
