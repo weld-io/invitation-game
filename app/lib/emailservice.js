@@ -13,7 +13,7 @@ var transport = nodemailer.createTransport(
 
 var config = require('../config/config');
 
-var weldDefaultEmail = "Weld <contact@weld.io>";
+var defaultSenderEmail = process.env.EMAILSENDER || 'Default Sender <info@defaultwebsite.com>';
 
 var VIEWS_PATH = 'app/views/';
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
 var sendTemplateUserInvited = transport.templateSender(
 	new EmailTemplate(VIEWS_PATH + 'email/share-project'), // path to template
 	{
-		from: weldDefaultEmail, // sender address
+		from: defaultSenderEmail, // sender address
 	}
 );
 

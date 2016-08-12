@@ -9,6 +9,10 @@ Just start with:
 
 	# Set password used in API requests
 	export API_PASSWORD=MYPASSWORD
+	# Set default Destination
+	export DESTINATION=http://www.mywebsite.com
+	# Set default Email Sender
+	export EMAILSENDER="Email Sender <info@mywebsite.com>"
 
 	grunt
 

@@ -56,11 +56,7 @@ module.exports = {
 		Invite.find({ code: req.params.code }, function (inviteErr, foundInvites) {
 			if (foundInvites.length > 0) {
 				var invite = foundInvites[0];
-				var redirectUrl;
-				if (invite.destination)
-					redirectUrl = invite.destination;
-				else
-					redirectUrl = 'http://weld.io';
+				var redirectUrl = invite.destination || process.env.DESTINATION || 'http://www.defaultwebsite.com';
 				// Add parameters
 				redirectUrl = addParameter(redirectUrl, 'inviteCode', invite.code);
 				// Do the redirect
