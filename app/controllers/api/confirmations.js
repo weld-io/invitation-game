@@ -30,7 +30,17 @@ module.exports = {
 					User.findById(invite.user, function (err, user) {
 						var rewardSearch = {recipient: 'inviter', score: { $lte: score }};
 						Reward.find(rewardSearch, function(rewardErr, rewards) {
-							emailservice.sendInviterConfirmation(user.email, req.body.email, score, rewards);
+							user.achievedRewards = user.achievedRewards || [];
+							var newRewards = _.filter(rewards, function(reward) {
+								return (user.achievedRewards.indexOf(reward._id) === -1);
+							});
+							if (newRewards.length > 0) {
+								user.achievedRewards = user.achievedRewards.concat(_.map(newRewards, '_id'));
+								user.save();
+							};
+							console.log("rewards: ", rewards);
+							console.log("newRewards: ", newRewards);
+							emailservice.sendInviterConfirmation(user.email, req.body.email, score, newRewards);
 						});
 					}); 
 					// Send email to invitee
