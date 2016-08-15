@@ -2,4 +2,7 @@
 
 <p><%- inviteeEmail %> just signed up - you have <%- score %> points!</p>
 
+<p><% for(var r in rewards) { %><%= rewards[r].message %><br />
+<% } %></p>
+
 <p>Invite more at <a href="<%- appSendInviteUrl %>"><%- appSendInviteUrl %></a></p>

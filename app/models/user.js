@@ -8,6 +8,7 @@ var UserSchema = new Schema({
 	name: { type: String },
 	dateCreated: { type: Date, default: Date.now },
 	score: { type: Number },
+	achievedRewards: [String],
 });
 
 UserSchema.plugin(findOrCreate);

@@ -6,6 +6,7 @@ var md5 = require('md5');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Invite = mongoose.model('Invite');
+var Reward = mongoose.model('Reward');
 
 var codegenerator = require('../../lib/codegenerator');
 var emailservice = require('../../lib/emailservice');
@@ -27,8 +28,12 @@ module.exports = {
 					var score = _.keys(invite.confirmations).length;
 					// Send email to Inviter
 					User.findById(invite.user, function (err, user) {
-						emailservice.sendInviterConfirmation(user.email, req.body.email, score);
-					});
+						var rewardSearch = {recipient: 'inviter', score: { $lte: score }};
+						Reward.find(rewardSearch, function(rewardErr, rewards) {
+							emailservice.sendInviterConfirmation(user.email, req.body.email, score, rewards);
+						});
+					}); 
+					// Send email to invitee
 					return res.json({ invite: invite, score: score });
 				});
 			}
