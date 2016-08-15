@@ -38,12 +38,17 @@ module.exports = {
 								user.achievedRewards = user.achievedRewards.concat(_.map(newRewards, '_id'));
 								user.save();
 							};
-							console.log("rewards: ", rewards);
-							console.log("newRewards: ", newRewards);
 							emailservice.sendInviterConfirmation(user.email, req.body.email, score, newRewards);
 						});
 					}); 
 					// Send email to invitee
+					var rewardInviteeSearch = {recipient: 'invitee'};
+					Reward.find(rewardInviteeSearch, function(rewardErr, rewards) {
+						// See if invitee has unlocked a reward
+						// or, see in inviter's invitations if this specific invite has been completed
+						// if unlocked, send a confirmation, and send the confirmation email
+						console.log("Invite: ", invite);
+					});
 					return res.json({ invite: invite, score: score });
 				});
 			}

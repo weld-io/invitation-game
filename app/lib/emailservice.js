@@ -105,3 +105,45 @@ module.exports.sendInviteeInvite = function (inviteeEmail, inviterEmail, code, m
 		);			
 	}
 };
+
+// ----- Email to Invitee with Confirmation -----
+
+var sendTemplateInviteeConfirmation = transport.templateSender(
+	new EmailTemplate(VIEWS_PATH + 'email/invitee-confirmation'), // path to template
+	{
+		from: defaultSenderEmail, // sender address
+	}
+);
+
+module.exports.sendInviteeConfirmation = function (inviteeEmail, inviterEmail, message, callback) {
+	// use template based sender to send a message
+	if (process.env.EMAILSENDER) {
+		sendTemplateInviteeConfirmation(
+			{
+				replyTo: inviterEmail, // sender address
+				to: inviteeEmail, // list of receivers
+				// EmailTemplate renders html and text but no subject so we need to set it manually either here or in the defaults section of templateSender()
+				subject: "Your {appName} reward has been unlocked!"
+					.replace(/{appName}/g, appName)
+					.replace(/{inviterEmail}/g, inviterEmail),
+			},
+			{
+				appName: appName,
+				appDescription: appDescription,
+				appSendInviteUrl: appSendInviteUrl,
+				appAcceptInviteUrl: appAcceptInviteUrl,
+				inviterEmail: inviterEmail,
+				message: message,
+			},
+			function (err, results) {
+				if (err) {
+					console.log('Mailer error:', err);
+				}
+				else {
+					console.log('sendInviteeConfirmation sent to ' + inviteeEmail);
+				}
+				if (callback) callback(err, results);
+			}
+		);			
+	}
+};
