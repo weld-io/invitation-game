@@ -29,7 +29,7 @@ var sendTemplateInviterConfirmation = transport.templateSender(
 	}
 );
 
-module.exports.sendInviterConfirmation = function (inviterEmail, inviteeEmail, score, callback) {
+module.exports.sendInviterConfirmation = function (inviterEmail, inviteeEmail, score, rewards, callback) {
 	// use template based sender to send a message
 	if (process.env.EMAILSENDER) {
 		sendTemplateInviterConfirmation(
@@ -48,6 +48,7 @@ module.exports.sendInviterConfirmation = function (inviterEmail, inviteeEmail, s
 				appAcceptInviteUrl: appAcceptInviteUrl,
 				inviteeEmail: inviteeEmail,
 				score: score,
+				rewards: rewards,
 			},
 			function (err, results) {
 				if (err) {
