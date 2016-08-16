@@ -106,6 +106,30 @@ JSON response:
 
 Inviter’s score is accumulated, and rewards can be triggered at certain score levels. Rewards can be trigger web callbacks and/or email being sent.
 
+`rewards` collection in MongoDB:
+
+	/* For Inviter */
+	{
+		"recipient": "inviter",
+		"score": 1,
+		"description": "One free month of My Website.",
+		"claimInstructions": "Use discount code INVITED1 at www.mywebsite.com/upgrade"
+	}
+	{
+		"recipient": "inviter",
+		"score": 3,
+		"description": "Three free months of My Website.",
+		"claimInstructions": "Use discount code INVITED3 at www.mywebsite.com/upgrade"
+	},
+
+	/* For Invitee */
+	{
+		"recipient": "invitee",
+		"score": ,
+		"description": "One free month of My Website.",
+		"claimInstructions": "Use discount code WASINVITED at www.mywebsite.com/upgrade"
+	}
+
 
 ## Implementation
 
