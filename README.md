@@ -125,7 +125,6 @@ Inviter’s score is accumulated, and rewards can be triggered at certain score 
 	/* For Invitee */
 	{
 		"recipient": "invitee",
-		"score": ,
 		"description": "One free month of My Website.",
 		"claimInstructions": "Use discount code WASINVITED at www.mywebsite.com/upgrade"
 	}
