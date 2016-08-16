@@ -1,6 +1,6 @@
-<p>Because <%- inviterEmail %> was so nice to invite you to <%- appName %>, we want to give you a reward:</p>
+<p>As a thank you for signing up to <%- appName %>, we want to give you a reward:</p>
 
-<p><% for(var r in rewards) { %><%= rewards[r].message %><br />
+<p><% for(var r in rewards) { %><%= rewards[r].description %><br /><%= rewards[r].claimInstructions %>
 <% } %></p>
 
 <p>Good luck with your new <%- appName %> account!</p>

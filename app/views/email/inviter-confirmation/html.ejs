@@ -2,7 +2,10 @@
 
 <p><%- inviteeEmail %> just signed up - you have <%- score %> points!</p>
 
-<p><% for(var r in rewards) { %><%= rewards[r].message %><br />
+<p><% for(var r in rewards) { %><%= rewards[r].description %> <%= rewards[r].claimInstructions %><br />
 <% } %></p>
+
+<p>Your next reward is unlocked when you have <%- nextReward.score %> points:<br />
+<%- nextReward.description %></p>
 
 <p>Invite more at <a href="<%- appSendInviteUrl %>"><%- appSendInviteUrl %></a></p>

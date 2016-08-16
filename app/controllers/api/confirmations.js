@@ -34,11 +34,20 @@ module.exports = {
 							var newRewards = _.filter(rewards, function(reward) {
 								return (user.achievedRewards.indexOf(reward._id) === -1);
 							});
-							if (newRewards.length > 0) {
-								user.achievedRewards = user.achievedRewards.concat(_.map(newRewards, '_id'));
-								user.save();
-							};
-							emailservice.sendInviterConfirmation(user.email, req.body.email, score, newRewards);
+
+							// search the DB for the next reward. Query and then use lodash's sort, 
+							var nextRewardSearch = {recipient: 'inviter', score: { $gte: score }};
+							Reward.find(nextRewardSearch, function(nextRewardErr, nextRewards) {
+									var nextRewardSort = _.sortBy(nextRewards, function(reward) {
+										return reward.score;
+									});
+									var nextReward = nextRewardSort[0];
+									if (newRewards.length > 0) {
+										user.achievedRewards = user.achievedRewards.concat(_.map(newRewards, '_id'));
+										user.save();
+									};
+									emailservice.sendInviterConfirmation(user.email, req.body.email, score, newRewards, nextReward);
+							});
 						});
 						// Send email to invitee
 						var rewardInviteeSearch = {recipient: 'invitee'};
