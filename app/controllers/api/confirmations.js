@@ -23,7 +23,8 @@ module.exports = {
 				var emailHash = md5(req.body.email);
 				invite.confirmations = invite.confirmations || {};
 				invite.confirmations[emailHash] = { date: new Date };
-				invite.save(function () {
+				invite.markModified('confirmations.' + emailHash);
+				invite.save(function (inviteSaveErr, result) {
 					// Calculate score
 					var score = _.keys(invite.confirmations).length;
 					// Send email to Inviter
@@ -36,7 +37,7 @@ module.exports = {
 							});
 
 							// search the DB for the next reward. Query and then use lodash's sort, 
-							var nextRewardSearch = {recipient: 'inviter', score: { $gte: score }};
+							var nextRewardSearch = {recipient: 'inviter', score: { $gt: score }};
 							Reward.find(nextRewardSearch, function(nextRewardErr, nextRewards) {
 									var nextRewardSort = _.sortBy(nextRewards, function(reward) {
 										return reward.score;
