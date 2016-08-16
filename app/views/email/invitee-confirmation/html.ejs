@@ -1,6 +1,10 @@
 <p>As a thank you for signing up to <%- appName %>, we want to give you a reward:</p>
 
-<p><% for(var r in rewards) { %><%= rewards[r].description %><br /><%= rewards[r].claimInstructions %>
+<% if (rewards.length > 0) {%>
+<p>Here’s your reward:</p>
+<% } %>
+
+<p><% for(var r in rewards) { %><strong><%= rewards[r].description %></strong><br/><%= rewards[r].claimInstructions %>
 <% } %></p>
 
 <p>Good luck with your new <%- appName %> account!</p>

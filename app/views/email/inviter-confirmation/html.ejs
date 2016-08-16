@@ -2,10 +2,14 @@
 
 <p><%- inviteeEmail %> just signed up - you have <%- score %> points!</p>
 
-<p><% for(var r in rewards) { %><%= rewards[r].description %> <%= rewards[r].claimInstructions %><br />
+<% if (rewards.length > 0) {%>
+<p>Here’s your reward:</p>
+<% } %>
+
+<p><% for(var r in rewards) { %><strong><%= rewards[r].description %></strong><br /><%= rewards[r].claimInstructions %><br />
 <% } %></p>
 
-<%if (nextReward) {%>
+<% if (nextReward) {%>
 <p>Your next reward is unlocked when you have <%- nextReward.score %> points:<br />
 <%- nextReward.description %></p>
 <% } %>
