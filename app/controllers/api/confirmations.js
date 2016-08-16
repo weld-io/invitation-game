@@ -38,12 +38,16 @@ module.exports = {
 								user.achievedRewards = user.achievedRewards.concat(_.map(newRewards, '_id'));
 								user.save();
 							};
-							console.log("rewards: ", rewards);
-							console.log("newRewards: ", newRewards);
 							emailservice.sendInviterConfirmation(user.email, req.body.email, score, newRewards);
 						});
+						// Send email to invitee
+						var rewardInviteeSearch = {recipient: 'invitee'};
+						Reward.find(rewardInviteeSearch, function(rewardErr, rewards) {
+							if (rewards.length > 0) {
+								emailservice.sendInviteeConfirmation(req.body.email, user.email, rewards); 
+							};
+						});
 					}); 
-					// Send email to invitee
 					return res.json({ invite: invite, score: score });
 				});
 			}
