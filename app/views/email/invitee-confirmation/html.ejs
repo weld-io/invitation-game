@@ -1,9 +1,6 @@
-<h1>You unlocked your reward for <%- appName %>!</h1>
+<p>Because <%- inviterEmail %> was so nice to invite you to <%- appName %>, we want to give you a reward:</p>
 
-<p>You and your friend <%- inviterEmail %> each has been rewarded a free month of <%- appName %>.</p>
+<p><% for(var r in rewards) { %><%= rewards[r].message %><br />
+<% } %></p>
 
-<%if (appDescription) {%>
-<p><%- appDescription %></p>
-<% } %>
-
-<p><a class="call-to-action" href="<%- appAcceptInviteUrl %>">Get started with <%- appName %>!</a></p>
+<p>Good luck with your new <%- appName %> account!</p>

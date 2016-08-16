@@ -115,15 +115,14 @@ var sendTemplateInviteeConfirmation = transport.templateSender(
 	}
 );
 
-module.exports.sendInviteeConfirmation = function (inviteeEmail, inviterEmail, message, callback) {
+module.exports.sendInviteeConfirmation = function (inviteeEmail, inviterEmail, rewards, callback) {
 	// use template based sender to send a message
 	if (process.env.EMAILSENDER) {
 		sendTemplateInviteeConfirmation(
 			{
-				replyTo: inviterEmail, // sender address
 				to: inviteeEmail, // list of receivers
 				// EmailTemplate renders html and text but no subject so we need to set it manually either here or in the defaults section of templateSender()
-				subject: "Your {appName} reward has been unlocked!"
+				subject: "{appName}: here’s your “getting started” reward"
 					.replace(/{appName}/g, appName)
 					.replace(/{inviterEmail}/g, inviterEmail),
 			},
@@ -133,7 +132,7 @@ module.exports.sendInviteeConfirmation = function (inviteeEmail, inviterEmail, m
 				appSendInviteUrl: appSendInviteUrl,
 				appAcceptInviteUrl: appAcceptInviteUrl,
 				inviterEmail: inviterEmail,
-				message: message,
+				rewards: rewards,
 			},
 			function (err, results) {
 				if (err) {
