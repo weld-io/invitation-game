@@ -86,7 +86,7 @@ Fields:
 
 * `code` **(required)**: the Invite code.
 * `email` **(required)**: the Invitees email address. Invitee email addresses *are never* stored in the database.
-* `reference` (optional): a reference for tracking. Is stored in database.
+* `reference`: a reference for tracking. Is stored in database.
 
 JSON response:
 
