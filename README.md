@@ -152,3 +152,6 @@ Built on Node.js, Express (with EJS) and MongoDB.
 	heroku config:set SES_ACCESSKEY=[...]
 	heroku config:set SES_SECRET=[...]
 	heroku config:set SES_REGION=[...]
+
+	# Push git to Heroku
+	git push heroku-production master   # where 'heroku-production' is the name of the branch
