@@ -80,12 +80,13 @@ Invitee clicks the link and is transported to _Destination_ with optional parame
 
 When Invitee signs up, confirm this to by using the `code` provided. Score is added to Inviter. Email is sent to Inviter.
 
-	curl -X POST -H "Content-Type: application/json" -d '{ "code": "bo", "email": "invitee@weld.io" }' http://localhost:3011/api/confirmations
+	curl -X POST -H "Content-Type: application/json" -d '{ "code": "bo", "email": "invitee@weld.io", "reference": "my reference" }' http://localhost:3011/api/confirmations
 
 Fields:
 
 * `code` **(required)**: the Invite code.
 * `email` **(required)**: the Invitees email address. Invitee email addresses *are never* stored in the database.
+* `reference` (optional): a reference for tracking. Is stored in database.
 
 JSON response:
 

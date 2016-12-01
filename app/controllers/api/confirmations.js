@@ -23,6 +23,9 @@ module.exports = {
 				var emailHash = md5(req.body.email);
 				invite.confirmations = invite.confirmations || {};
 				invite.confirmations[emailHash] = { date: new Date };
+				if (req.body.reference) {
+					invite.confirmations[emailHash].reference = req.body.reference;
+				}
 				invite.markModified('confirmations.' + emailHash);
 				invite.save(function (inviteSaveErr, result) {
 					// Calculate score
