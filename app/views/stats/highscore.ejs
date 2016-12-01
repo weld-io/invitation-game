@@ -1,0 +1,16 @@
+<% include ../header %>
+
+<h1><%- title %></h1>
+
+<table>
+	<th>Inviter</th>
+	<th>Confirmed signups</th>
+<% for(var i=0; i < invites.length; i++) { %>
+	<tr>
+		<td><%= invites[i].email %> (<%= invites[i].code %>)</td>
+		<td><%= invites[i].confirmationCount %></td>
+	</tr>
+<% } %>
+</table>
+
+<% include ../footer %>

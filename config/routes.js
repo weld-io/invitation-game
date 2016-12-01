@@ -17,6 +17,7 @@ module.exports = function (app, config) {
 	var emailApiController = require(config.root + '/app/controllers/api/email');
 
 	var startController = require(config.root + '/app/controllers/web/start');
+	var statsController = require(config.root + '/app/controllers/web/stats');
 	var invitesWebController = require(config.root + '/app/controllers/web/invites');
 
 	// API Routes
@@ -31,6 +32,7 @@ module.exports = function (app, config) {
 
 
 	// Web Routes
+	router.get('/highscore', statsController.highscore);
 	router.get('/:code', invitesWebController.click);
 	router.get('/', startController.index);
 

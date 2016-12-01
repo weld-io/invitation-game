@@ -3,6 +3,10 @@ table {
   width: 50%;
   min-width: 280px; }
 
+th {
+  font-weight: bold;
+  background-color: #eee; }
+
 td {
   border: 1px solid #eee;
   padding: 0.4em; }
